@@ -8,7 +8,7 @@ test('пустая форма показывает ошибки email и пар�
   await page.locator('[data-marker="login-submit-button"]').click();
 
   await expect(page.locator('[data-marker="email-error"]'))
-    .toHaveText('Email обязателен');
+    .toHaveText('Неверный email');
 
   await expect(page.locator('[data-marker="password-error"]'))
     .toHaveText('Пароль обязателен');
