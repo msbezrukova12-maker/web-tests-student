@@ -3,13 +3,15 @@ import { test, expect } from '@playwright/test';
 test('пустая форма показывает ошибки email и пароля', async ({ page }) => {
   await page.goto('/');
 
-  await page.getByRole('button', { name: 'Вход и Регистрация' }).click();
+  const openLogin = page.locator('[data-marker="login-button-desktop"]');
+  await openLogin.click();
 
-  await page.locator('[data-marker="login-submit-button"]').click();
+  const submit = page.locator('[data-marker="login-submit-button"]');
+  await submit.click();
 
-  await expect(page.locator('[data-marker="email-error"]'))
-    .toHaveText('Email обязателен');
+  const emailError = page.locator('[data-marker="email-error"]');
+  const passwordError = page.locator('[data-marker="password-error"]');
 
-  await expect(page.locator('[data-marker="password-error"]'))
-    .toHaveText('Пароль обязателен');
+  await expect(emailError).toHaveText('Email обязателен');
+  await expect(passwordError).toHaveText('Пароль обязателен');
 });
